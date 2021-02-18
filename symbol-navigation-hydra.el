@@ -502,6 +502,13 @@ https://www.gnu.org/software/emacs/manual/html_node/elisp/Regexp-Search.html"
   ;; maybe should this use `(multiple-cursors-mode 0)' directly?
   (mc/keyboard-quit))
 
+;; Following the pattern from `doom--quit-expand-region-a'. Some alternatives:
+;; * define minor mode and bind `C-g' in the keymap
+;; * add an entry to `doom-escape-hook'
+;;
+;; Wonder what we'll need to do for non-Doom?
+(advice-add 'doom/escape :before 'symbol-navigation-hydra-exit)
+
 (defun symbol-navigation-hydra-mc-edit ()
   "Exit the hydra, so the user can start using the multiple cursors."
   (interactive)
